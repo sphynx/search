@@ -1,6 +1,7 @@
 package com.os.sp.search;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,5 +47,15 @@ public class Join {
 		Set<Join> joins = new LinkedHashSet<Join>(joins1);
 		joins.addAll(joins2);
 		return new ArrayList<Join>(joins);
+	}
+	
+	public static String toSql(List<Join> joinList) {
+		String res = "";
+       	for (Iterator<Join> i = joinList.iterator(); i.hasNext(); ) {
+       		Join j = i.next();
+       		res += "join " + j.getSql();
+       		res += "\n";
+       	}
+       	return res;
 	}
 }

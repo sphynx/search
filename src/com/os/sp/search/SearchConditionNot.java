@@ -15,17 +15,17 @@ public class SearchConditionNot extends SearchCondition {
     }
 
 	@Override
-	public String prettyPrint(String searchArea) {
+	public String toSql(String searchArea) {
        	String clause = "not (";
-       	clause += getCondition().prettyPrint(searchArea);
+       	clause += getCondition().toSql(searchArea);
        	clause += ")";
        	return clause;
 
 	}
 
 	@Override
-	public List<Join> joins(String searchArea) {
-		return condition.joins(searchArea);
+	public List<Join> getJoins(String searchArea) {
+		return condition.getJoins(searchArea);
 	}
     
 

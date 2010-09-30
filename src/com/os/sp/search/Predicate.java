@@ -35,20 +35,16 @@ public class Predicate extends SearchCondition {
 		this.value = value;
 	}
 	@Override
-	public String prettyPrint(String searchArea) {
+	public String toSql(String searchArea) {
 		Field f = SearchConfiguration.getField(searchArea, getFieldKey());
     	
        	String clause = "(";
        	Operator op = SearchConfiguration.getOperator(getOperatorKey());
        	
        	for (Iterator<String> i = f.getColumns().iterator(); i.hasNext(); ) {
-       		String c = i.next();
-       		String tpl = op.getTemplate();
-       		tpl = tpl.replace("$(F)", c);
-       	    // TODO: add correct value-to-string transformer
-       		tpl = tpl.replace("$(V)", getValue().toString()); 
-       		clause += tpl;
-       		if (i.hasNext()) { // merge with `or`
+       		String column = i.next();
+       		clause += OperatorResolver.resolve(op, column, getValue().toString());
+       		if (i.hasNext()) { // merge with `or` by default
        			clause += " or ";
        		}
        	}
@@ -57,7 +53,7 @@ public class Predicate extends SearchCondition {
 		return clause;
 	}
 	@Override
-	public List<Join> joins(String searchArea) {
+	public List<Join> getJoins(String searchArea) {
 		Field f = SearchConfiguration.getField(searchArea, getFieldKey());
     	return f.getJoins();
 	}

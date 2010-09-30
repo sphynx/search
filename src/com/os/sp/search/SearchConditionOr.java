@@ -20,17 +20,17 @@ public class SearchConditionOr extends SearchCondition {
     }
     
     @Override
-	public String prettyPrint(String searchArea) {
+	public String toSql(String searchArea) {
        	String clause = "(";
-       	clause += getLeft().prettyPrint(searchArea);
+       	clause += getLeft().toSql(searchArea);
        	clause += " or ";
-       	clause += getRight().prettyPrint(searchArea);
+       	clause += getRight().toSql(searchArea);
        	clause += ")";
        	return clause;
 	}
     
 	@Override
-	public List<Join> joins(String searchArea) {
-		return Join.merge(getLeft().joins(searchArea), getRight().joins(searchArea));
+	public List<Join> getJoins(String searchArea) {
+		return Join.merge(getLeft().getJoins(searchArea), getRight().getJoins(searchArea));
 	}
 }
