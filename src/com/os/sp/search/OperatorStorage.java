@@ -1,6 +1,8 @@
 package com.os.sp.search;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,30 +17,41 @@ import org.w3c.dom.NodeList;
 
 public class OperatorStorage {
 	
-	public static void loadFromXml() {
+	private static Map<String, Operator> storage = loadFromXml();
+    
+    public static Operator getOperator(String name) {
+        return storage.get(name);
+    }
+    
+	public static Map<String, Operator> loadFromXml() {
+		
+		Map<String, Operator> res = new HashMap<String, Operator>();
 				
 		// parse the XML as a W3C Document
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document document = builder.parse(new File("doc/config.xml"));
+			Document document = builder.parse(new File("doc/operators.xml"));
 
 			XPath xpath = XPathFactory.newInstance().newXPath();
-			System.out.println(xpath.evaluate("/search-config/main-query-template", document).trim());
-			System.out.println(xpath.evaluate("/search-config/search-area[1]/area-where", document));
-			
-			NodeList nodes = (NodeList) xpath.evaluate("/search-config/search-area", document, 
+			NodeList nodes = (NodeList) xpath.evaluate("/operators/operator", document, 
 					XPathConstants.NODESET);
 			
 			for (int i = 0; i < nodes.getLength(); i++) {
 				Node node = nodes.item(i);
 				NamedNodeMap attribs = node.getAttributes();
-				String table = attribs.getNamedItem("table").getTextContent();
-				String alias = attribs.getNamedItem("alias").getTextContent();
+				String name = attribs.getNamedItem("name").getTextContent();
+				String type = xpath.evaluate("type", node);
+				String template = xpath.evaluate("template", node);
+				
+				Operator op = new Operator(name, Type.fromString(type), template);
+				res.put(name, op);
 				
 			}
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		return res;
 	}
 }

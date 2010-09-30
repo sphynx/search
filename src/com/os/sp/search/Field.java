@@ -49,6 +49,4 @@ public class Field {
 		res += "\n";
 		return res;
 	}
-	
-	
 }

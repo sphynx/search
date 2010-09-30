@@ -35,4 +35,11 @@ public class Operator {
         this.type = type;
         this.template = template;
     }
+
+	@Override
+	public String toString() {
+		return "operator. name = " + name 
+		+ ", type = " + type
+		+ ", template = " + template;
+	}
 }
