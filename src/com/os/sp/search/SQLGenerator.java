@@ -1,6 +1,7 @@
 package com.os.sp.search;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class SQLGenerator {
 	
@@ -17,7 +18,10 @@ public class SQLGenerator {
     	SearchCondition cond = req.getCondition();
     	
     	String joins = "";
-       	for (Iterator<Join> i = cond.joins(areaKey).iterator(); i.hasNext(); ) {
+    	List<Join> joinList = cond.joins(areaKey);
+    	joinList = Join.merge(joinList, area.getJoins());
+    	
+       	for (Iterator<Join> i = joinList.iterator(); i.hasNext(); ) {
        		Join j = i.next();
        		joins += "join " + j.getSql();
        		joins += "\n";

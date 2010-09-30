@@ -23,7 +23,7 @@ public class SearchArea {
     private String alias;
     private String selectColumns;
     private List<Field> fields;
-    private String join;
+    private List<Join> joins;
     private String where;
 
     public String getKey() {
@@ -34,12 +34,12 @@ public class SearchArea {
 		this.key = key;
 	}
 
-	public String getJoin() {
-		return join;
+	public List<Join> getJoins() {
+		return joins;
 	}
 
-	public void setJoin(String join) {
-		this.join = join;
+	public void setJoins(List<Join> joins) {
+		this.joins = joins;
 	}
 
 	public String getWhere() {
@@ -83,23 +83,22 @@ public class SearchArea {
 	}
 
 	public SearchArea(String key, String table, String alias, String selectColumns,
-			List<Field> fields, String join, String where) {
-		super();
+			List<Field> fields, List<Join> joins, String where) {
 		this.key = key;
 		this.table = table;
 		this.alias = alias;
 		this.selectColumns = selectColumns;
 		this.fields = fields;
-		this.join = join;
+		this.joins = joins;
 		this.where = where;
 	}
+	
 	@Override
 	public String toString() {
 		String res = "key = " + key 
 	    + ", table = " + table 
 		+ ", alias = " + alias
 		+ ", select-columns = " + selectColumns
-		+ ", area-join = " + join
 		+ ", where = " + where
 		+ "\n";
 		

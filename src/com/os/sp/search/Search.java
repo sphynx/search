@@ -10,6 +10,8 @@ public class Search {
         .and(new Predicate(Field.CONTACT_LAST_NAME, Operator.STR_STARTS_WITH, "a"))
         .or(new Predicate(Field.CONTACT_COMPANY_NAME, Operator.STR_CONTAINS, "Sony"));
     	
+    	SearchCondition cond2 = new Predicate(Field.CONTACT_USERNAME, Operator.STR_EQUALS, "root");
+    	
     	SearchRequest req = new SearchRequest(SearchArea.CONTACT, cond);
     	
     	System.out.println(SQLGenerator.generateSql(req));

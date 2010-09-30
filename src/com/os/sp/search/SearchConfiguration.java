@@ -83,8 +83,14 @@ public class SearchConfiguration {
 				String alias = attribs.getNamedItem("alias").getTextContent();
 				String key = attribs.getNamedItem("key").getTextContent();
 				String selectColumns = xpath.evaluate("select-columns", node);
-				String areaJoin = xpath.evaluate("area-join", node);
 				String areaWhere = xpath.evaluate("area-where", node);
+				
+				List<Join> areaJoins = new ArrayList<Join>();
+				NodeList areaJoinList = (NodeList) xpath.evaluate("area-join", node, XPathConstants.NODESET);
+				for (int j = 0; j < areaJoinList.getLength(); j++) {
+					Join join = new Join(areaJoinList.item(j).getTextContent());
+					areaJoins.add(join);
+				}
 				
 				List<Field> fields = new ArrayList<Field>();
 				NodeList fieldNodes = (NodeList) xpath.evaluate("fields/field", node, XPathConstants.NODESET);
@@ -111,7 +117,7 @@ public class SearchConfiguration {
 					fields.add(new Field(fieldKey, joins, columns));
 				}
 				
-				SearchArea area = new SearchArea(key, table, alias, selectColumns, fields, areaJoin, areaWhere);
+				SearchArea area = new SearchArea(key, table, alias, selectColumns, fields, areaJoins, areaWhere);
 				//System.out.println(area);
 				areas.put(area.getKey(), area);
 			}
