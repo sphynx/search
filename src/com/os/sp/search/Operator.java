@@ -1,6 +1,12 @@
 package com.os.sp.search;
 
 public class Operator {
+	
+	public static final String STR_CONTAINS = "string.contains";
+	public static final String STR_STARTS_WITH = "string.startsWith";
+	public static final String STR_ENDS_WITH = "string.endsWith";
+	public static final String STR_EQUALS = "string.equals";
+	public static final String STR_MATCHES = "string.matches";
     
     private String name;
     private int type;

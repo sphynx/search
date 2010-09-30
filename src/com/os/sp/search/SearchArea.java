@@ -4,19 +4,19 @@ import java.util.List;
 
 public class SearchArea {
     
-    public static final int ACTION_PLAN_CATEGORY = 1;
-    public static final int ACTION_PLAN = 2;
-    public static final int ASSET = 3;
-    public static final int CONTACT_GROUP = 4;
-    public static final int CONTACT_WITHIN_ORGANIZATION = 5;
-    public static final int CONTACT = 6;
-    public static final int DOCUMENT_CATEGORY = 7;
-    public static final int DOCUMENT = 8;
-    public static final int EXTERNALIZED_PROCESS = 9;
-    public static final int LOCAL_PROCESS = 10;
-    public static final int QUESTIONNAIRE_TEMPLATE = 11;
-    public static final int REPORT_TEMPLATE = 12;
-    public static final int RESOURCE_TYPE = 13;
+    public static final String ACTION_PLAN_CATEGORY = "area.actionPlanCategory";
+    public static final String ACTION_PLAN = "area.actionPlan";
+    public static final String ASSET = "area.asset";
+    public static final String CONTACT_GROUP = "area.contactGroup";
+    public static final String CONTACT_WITHIN_ORGANIZATION = "area.contactInOrg";
+    public static final String CONTACT = "area.contact";
+    public static final String DOCUMENT_CATEGORY = "area.documentCategory";
+    public static final String DOCUMENT = "area.document";
+    public static final String EXTERNALIZED_PROCESS = "area.externalizedProcess";
+    public static final String LOCAL_PROCESS = "area.localProcess";
+    public static final String QUESTIONNAIRE_TEMPLATE = "area.questionnaireTemplate";
+    public static final String REPORT_TEMPLATE = "area.reportTemplate";
+    public static final String RESOURCE_TYPE = "area.resourceType";
 
     private String key;
 	private String table;

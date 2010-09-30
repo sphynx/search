@@ -2,27 +2,27 @@
   
   <operator name="string.contains">
     <type>str</type>
-    <template>$(F) like %$(V)%</template>
+    <template>$(F) like '%$(V)%'</template>
   </operator>
   
-  <operator name="string.starts-with">
+  <operator name="string.startsWith">
     <type>str</type>
-    <template>$(F) like $(V)%</template>
+    <template>$(F) like '$(V)%'</template>
   </operator>
 
-  <operator name="string.ends-with">
+  <operator name="string.endsWith">
     <type>str</type>
-    <template>$(F) like %$(V)</template>
+    <template>$(F) like '%$(V)'</template>
   </operator>
 
   <operator name="string.equals">
     <type>str</type>
-    <template>$(F) = $(V)</template>
+    <template>$(F) = '$(V)'</template>
   </operator>
 
   <operator name="string.matches">
     <type>str</type>
-    <template>$(F) like $(V)</template>
+    <template>$(F) like '$(V)'</template>
   </operator>
       
 </operators>

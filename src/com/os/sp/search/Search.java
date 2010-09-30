@@ -4,10 +4,15 @@ public class Search {
     
     public static void main(String[] args) {
         
-    	Predicate p = new Predicate("contact.firstName", "string.starts-with", "a");
-    	SearchRequest req = new SearchRequest("area.contact", p);
+    	SearchCondition cond = 
+    		new Predicate(Field.CONTACT_PHONE, Operator.STR_CONTAINS, "422")
+        .and(new Predicate(Field.CONTACT_FIRST_NAME, Operator.STR_STARTS_WITH, "a"))
+        .and(new Predicate(Field.CONTACT_LAST_NAME, Operator.STR_STARTS_WITH, "a"))
+        .or(new Predicate(Field.CONTACT_COMPANY_NAME, Operator.STR_CONTAINS, "Sony"));
     	
-    	System.out.println("generated SQL: \n" + SQLGenerator.generateSql(req));
+    	SearchRequest req = new SearchRequest(SearchArea.CONTACT, cond);
+    	
+    	System.out.println(SQLGenerator.generateSql(req));
     }
 
 }

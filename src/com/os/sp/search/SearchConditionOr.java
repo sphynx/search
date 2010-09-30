@@ -1,5 +1,7 @@
 package com.os.sp.search;
 
+import java.util.List;
+
 public class SearchConditionOr extends SearchCondition {
     
     private final SearchCondition left;
@@ -18,7 +20,17 @@ public class SearchConditionOr extends SearchCondition {
     }
     
     @Override
-    public String toString() {
-        return left.toString() + " OR " + right.toString();
-    }
+	public String prettyPrint(String searchArea) {
+       	String clause = "(";
+       	clause += getLeft().prettyPrint(searchArea);
+       	clause += " or ";
+       	clause += getRight().prettyPrint(searchArea);
+       	clause += ")";
+       	return clause;
+	}
+    
+	@Override
+	public List<Join> joins(String searchArea) {
+		return Join.merge(getLeft().joins(searchArea), getRight().joins(searchArea));
+	}
 }

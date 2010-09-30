@@ -1,5 +1,7 @@
 package com.os.sp.search;
 
+import java.util.List;
+
 public class SearchConditionAnd extends SearchCondition {
     
     private final SearchCondition left;
@@ -17,8 +19,20 @@ public class SearchConditionAnd extends SearchCondition {
         this.right = right;
     }
     
-    @Override
-    public String toString() {
-        return left.toString() + " AND " + right.toString();
-    }
+	@Override
+	public String prettyPrint(String searchArea) {
+    	
+       	String clause = "(";
+       	clause += getLeft().prettyPrint(searchArea);
+       	clause += " and ";
+       	clause += getRight().prettyPrint(searchArea);
+       	clause += ")";
+ 
+		return clause;
+	}
+	
+	@Override
+	public List<Join> joins(String searchArea) {
+		return Join.merge(getLeft().joins(searchArea), getRight().joins(searchArea));
+	}
 }

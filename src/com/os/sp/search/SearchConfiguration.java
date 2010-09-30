@@ -36,6 +36,10 @@ public class SearchConfiguration {
         return area;
     }
     
+    public static List<Field> getFields(String searchAreaKey) {
+    	return getSearchArea(searchAreaKey).getFields();
+    }
+    
     public static Field getField(String searchAreaKey, String fieldKey) {
     	SearchArea area = getSearchArea(searchAreaKey);
     	
@@ -63,7 +67,6 @@ public class SearchConfiguration {
 	private static void loadConfiguration() {
         areas = new HashMap<String, SearchArea>();
 		
-		// parse the XML as a W3C Document
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document document = builder.parse(new File("doc/config.xml"));
@@ -142,7 +145,5 @@ public class SearchConfiguration {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
 	}
-
 }

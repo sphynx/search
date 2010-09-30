@@ -1,7 +1,7 @@
 <search-config>
 
   <main-query-template>
-    select $(what) from $(table) $(alias) $(joins) where $(where)
+    select $(what) from $(table) $(alias) $(joins) where $(where) and $(area_where)
   </main-query-template>
   
   <search-area key="area.contact" table="contact" alias="c">
