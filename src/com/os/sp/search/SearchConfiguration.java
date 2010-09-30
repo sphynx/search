@@ -18,15 +18,30 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class SearchConfiguration {
+	
+	static {
+		loadConfiguration();
+		loadOperators();
+	}
     
-    private static Map<String, SearchArea> conf = loadFromXml();
+    private static Map<String, SearchArea> areas;
+    private static Map<String, Operator> operators;
+    private static String queryTemplate;
     
     public static SearchArea getSearchArea(String searchAreaKey) {
-        return conf.get(searchAreaKey);
+        return areas.get(searchAreaKey);
     }
     
-	private static Map<String, SearchArea> loadFromXml() {
-        Map<String, SearchArea> res = new HashMap<String, SearchArea>();
+    public static Operator getOperator(String operatorKey) {
+        return operators.get(operatorKey);
+    }
+    
+    public static String getQueryTemplate() {
+    	return queryTemplate;
+    }
+    
+	private static void loadConfiguration() {
+        areas = new HashMap<String, SearchArea>();
 		
 		// parse the XML as a W3C Document
 		try {
@@ -34,6 +49,7 @@ public class SearchConfiguration {
 			Document document = builder.parse(new File("doc/config.xml"));
 			XPath xpath = XPathFactory.newInstance().newXPath();
 			
+			queryTemplate = xpath.evaluate("/search-config/main-query-template", document).trim();
 			NodeList nodes = (NodeList) xpath.evaluate("/search-config/search-area", document, 
 					XPathConstants.NODESET);
 			
@@ -72,16 +88,41 @@ public class SearchConfiguration {
 					fields.add(new Field(fieldKey, joins, columns));
 				}
 				
-				SearchArea area = new SearchArea(key, table, alias, selectColumns, 
-						fields, areaJoin, areaWhere);
-				System.out.println(area);
-				res.put(area.getKey(), area);
+				SearchArea area = new SearchArea(key, table, alias, selectColumns, fields, areaJoin, areaWhere);
+				//System.out.println(area);
+				areas.put(area.getKey(), area);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
-        return res;
-
 	}
+	
+	public static void loadOperators() {
+		
+		operators = new HashMap<String, Operator>();
+				
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document document = builder.parse(new File("doc/operators.xml"));
+
+			XPath xpath = XPathFactory.newInstance().newXPath();
+			NodeList nodes = (NodeList) xpath.evaluate("/operators/operator", document, 
+					XPathConstants.NODESET);
+			
+			for (int i = 0; i < nodes.getLength(); i++) {
+				Node node = nodes.item(i);
+				NamedNodeMap attribs = node.getAttributes();
+				String name = attribs.getNamedItem("name").getTextContent();
+				String type = xpath.evaluate("type", node);
+				String template = xpath.evaluate("template", node);
+				
+				operators.put(name, new Operator(name, Type.fromString(type), template));
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+
 }

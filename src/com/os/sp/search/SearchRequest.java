@@ -6,7 +6,7 @@ public class SearchRequest {
     private boolean useCurrentFilter = true; 
     private boolean resolveReferences = false; 
     private Filter filter = null;
-    private int searchArea;
+    private String searchArea;
     private SearchCondition condition;
     
     public boolean isSearchInLibrary() {
@@ -37,10 +37,10 @@ public class SearchRequest {
         this.filter = filter;
     }
     
-    public int getSearchArea() {
+    public String getSearchArea() {
         return searchArea;
     }
-    public void setSearchArea(int searchArea) {
+    public void setSearchArea(String searchArea) {
         this.searchArea = searchArea;
     }
     
@@ -51,7 +51,7 @@ public class SearchRequest {
         this.condition = condition;
     }
     
-    public SearchRequest(int searchArea, SearchCondition condition) {
+    public SearchRequest(String searchArea, SearchCondition condition) {
         this.searchArea = searchArea;
         this.condition = condition;
     }
