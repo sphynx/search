@@ -1,0 +1,65 @@
+a.	Contacts:
+i.	First Name 
+ii.	Last name 
+iii.	Company name
+iv.	Notes
+v.	Email
+vi.	Phone
+vii.	Employee number
+viii.	External ID
+vii.ix.	User name
+b.	Contact Group
+i.	Name
+ii.	Description
+iii.	Leaders (available when search with references is on)
+iv.	External ID
+iii.v.	Editors (available when search with references is on)
+c.	Contact within organization 
+i.	First Name
+ii.	Last name
+iii.	Company name
+iv.	External ID
+iii.	
+d.	Resource type 
+i.	Name
+ii.	Description
+iii.	Owner (available when search with references is on)
+iii.iv.	External ID
+e.	Asset 
+i.	Name
+ii.	Description
+iii.	Owner (available when search with references is on)
+iii.iv.	External ID
+f.	Reports (Report Template)
+i.	Name
+ii.	Description
+iii.	Updated by 
+g.	Document Category
+i.	Name
+ii.	Description
+h.	Documents
+i.	Name
+ii.	Description
+iii.	Updated by
+iii.iv.	Editors (available when search with references is on)
+i.	Action plan category
+i.	Name
+ii.	Description
+j.	Action Plans
+i.	Name 
+ii.	Definition
+iii.	Editors (available when search with references is on)
+k.	Questionnaire Templates 
+i.	Name
+ii.	Description
+l.	Local Process
+i.	Name
+ii.	Description
+iii.	Owner (available when search with references is on)
+iii.iv.	External ID
+m.	Externalized Process
+i.	Name
+ii.	Description
+iii.	Owner (available when search with references is on)
+iv.	Resource type (available when search with references is on) 
+iv.v.	External ID
