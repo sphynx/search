@@ -1,0 +1,77 @@
+== Contacts:
+1) First Name
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+where ci.first_name like '%a'
+
+2) Last name
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+where ci.last_name like '%a'
+
+3) Company name
+select * from contact c
+join record_catalog rc on c.id = rc.id
+join company co on co.id = rc.company_id
+where co.name like '%s%'
+
+4) Notes
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+where ci.notes like '%a'
+
+5) Email
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+join contact_personal_info cpi on c.id = cpi.contact_id
+where ci.work_email like '%a' or cpi.personal_email like '%a'
+
+6) Phone
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+join contact_personal_info cpi on c.id = cpi.contact_id
+where ci.work_tel like '%a' or cpi.home_telephone like '%a'
+
+7) Employee number
+select * from contact c
+join contact_info ci on c.id = ci.contact_id
+where ci.employee_no like '%a'
+
+8) External ID
+select * from contact c
+join record_catalog rc on c.id = rc.id
+where rc.external_uid like '%s%'
+
+9) User name
+select * from contact c
+where c.username = 'aaa'
+
+= Contact Group
+1) Name
+
+select * from contact_group cg
+join record_catalog rc on cg.id = rc.id
+where rc.name = 'a'
+
+2) Description
+select * from contact_group cg
+where cg.description = 'a'
+
+3) Leaders (available when search with references is on)
+select * from contact_group cg
+join contact_group_has_leader cghel on cghl.contact_group_id = cg.id
+join contact c on c.id = cghl.contact_id
+join contact_info ci on ci.contact_id = c.id
+where ci.first_name = 'a' or ci.last_name = 'a'
+
+4) External ID
+select * from contact_group cg
+join record_catalog rc on cg.id = rc.id
+where rc.external_uid = 'afsdf'
+
+5) Editors (available when search with references is on)
+select * from contact_group cg
+join contact_group_has_editor cghe on cghe.contact_group_id = cg.id
+join contact c on c.id = cghe.contact_id
+join contact_info ci on ci.contact_id = c.id
+where ci.first_name = 'a' or ci.last_name = 'b'

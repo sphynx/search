@@ -1,0 +1,57 @@
+1)
+create template by search area, replacing $(table), $(alias), $(what):
+
+table = "contact"
+alias = "c"
+what = "*"
+
+select $(what) from $(table) $(alias) $(joins) where $(where)
+
+2) 
+obtain $(joins) and $(where) from fields:
+
+e.g.
+
+fields are =
+
+  a) first_name
+  b) company_name
+  c) phone
+
+
+$(joins):
+  a) join contact_info ci on c.id = ci.contact_id
+  b) join record_catalog rc on c.id = rc.id
+     join company co on co.id = rc.company_id
+  c) join contact_info ci on c.id = ci.contact_id
+     join contact_personal_info cpi on c.id = cpi.contact_id
+
+$(where):
+  a) ci.first_name
+  b) co.name
+  c) ci.work_tel, cpi.home_telephone
+
+
+3)
+merge joins and make them unique (maintain order!):
+     join contact_info ci on c.id = ci.contact_id
+     join record_catalog rc on c.id = rc.id
+     join company co on co.id = rc.company_id
+     join contact_personal_info cpi on c.id = cpi.contact_id
+
+4)
+combine fields columns with operators and names
+if there are 2+ fields -> combine them with "or"
+get where clause
+
+(do not forget escaping of "quote", etc.)
+
+
+5) append to where clause
+additional clauses: company id, filtering
+-- maybe using the same framework: make internal predicates
+
+6) apply read own (?)
+
+7) apply paging
+
