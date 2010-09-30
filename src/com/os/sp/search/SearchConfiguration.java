@@ -29,11 +29,31 @@ public class SearchConfiguration {
     private static String queryTemplate;
     
     public static SearchArea getSearchArea(String searchAreaKey) {
-        return areas.get(searchAreaKey);
+        SearchArea area = areas.get(searchAreaKey);
+        if (area == null) {
+        	throw new IllegalArgumentException("unknown search area: " + searchAreaKey);
+        }
+        return area;
     }
     
+    public static Field getField(String searchAreaKey, String fieldKey) {
+    	SearchArea area = getSearchArea(searchAreaKey);
+    	
+    	for (Field f : area.getFields()) {
+    		if (f.getKey().equals(fieldKey)) {
+    			return f; 
+    		}
+    	}
+    	
+    	throw new IllegalArgumentException("unknown field: " + fieldKey + " in search area " + searchAreaKey);
+    }
+
     public static Operator getOperator(String operatorKey) {
-        return operators.get(operatorKey);
+        Operator op = operators.get(operatorKey);
+        if (op == null) {
+        	throw new IllegalArgumentException("unknown operator: " + operatorKey);
+        }
+        return op;
     }
     
     public static String getQueryTemplate() {
