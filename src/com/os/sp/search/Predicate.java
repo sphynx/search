@@ -33,9 +33,4 @@ public class Predicate extends SearchCondition {
         this.op = op;
         this.value = value;
     }
-    
-    @Override
-    public String toString() {
-         
-    }
 }

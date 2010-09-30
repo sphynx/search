@@ -9,7 +9,7 @@ public class Search {
         Field f3 = new Field("contact.companyName", Type.STRING);
         Field f4 = new Field("contact.id", Type.INTEGER);
 
-        SearchCondition p1 = new Predicate(f1, Operator.CONTAINS, new Value("ab"));
+        SearchCondition p1 = new Predicate(f1, Operator.STRING_CONTAINS, new Value("ab"));
         
         SearchRequest req = new SearchRequest(SearchArea.CONTACT, p1);
         
