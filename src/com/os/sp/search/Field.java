@@ -7,6 +7,7 @@ public class Field {
 	private String key;
 	private List<Join> joins;
 	private List<String> columns;
+	
 	public String getKey() {
 		return key;
 	}
@@ -30,5 +31,24 @@ public class Field {
 		this.joins = joins;
 		this.columns = columns;
 	}
+	
+	@Override
+	public String toString() {
+		String res = "field '" + key + "'\n";
+		
+		res += " joins: \n";
+		for (Join j : joins) {
+			res += j.getSql() + "\n";
+		}
+		
+		res += " columns: \n";
+		for (String col : columns) {
+			res += col + " ";
+		}
+		
+		res += "\n";
+		return res;
+	}
+	
 	
 }

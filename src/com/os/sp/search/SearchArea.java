@@ -1,12 +1,8 @@
 package com.os.sp.search;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SearchArea {
-    
-    public static final String QUERY_TEMPLATE = "select $(what) from $(table) $(alias) $(joins) where $(where)";
     
     public static final int ACTION_PLAN_CATEGORY = 1;
     public static final int ACTION_PLAN = 2;
@@ -21,8 +17,40 @@ public class SearchArea {
     public static final int QUESTIONNAIRE_TEMPLATE = 11;
     public static final int REPORT_TEMPLATE = 12;
     public static final int RESOURCE_TYPE = 13;
-    
-    public String getTable() {
+
+    private String key;
+	private String table;
+    private String alias;
+    private String selectColumns;
+    private List<Field> fields;
+    private String join;
+    private String where;
+
+    public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	public String getJoin() {
+		return join;
+	}
+
+	public void setJoin(String join) {
+		this.join = join;
+	}
+
+	public String getWhere() {
+		return where;
+	}
+
+	public void setWhere(String where) {
+		this.where = where;
+	}
+
+	public String getTable() {
         return table;
     }
 
@@ -38,55 +66,49 @@ public class SearchArea {
         this.alias = alias;
     }
 
-    public String getWhat() {
-        return what;
-    }
+    public String getSelectColumns() {
+		return selectColumns;
+	}
 
-    public void setWhat(String what) {
-        this.what = what;
-    }
+	public void setSelectColumns(String selectColumns) {
+		this.selectColumns = selectColumns;
+	}
 
-    public SearchArea(String table, String alias, String what) {
-        this.table = table;
-        this.alias = alias;
-        this.what = what;
-    }
-    
-    private String table;
-    private String alias;
-    private String what;
-    private List<Field> fields;
+	public List<Field> getFields() {
+		return fields;
+	}
 
-    private static final Map<Integer, SearchArea> areaStorage = initStorage();
-    
-    private static Map<Integer, SearchArea> initStorage() {
-        Map<Integer, SearchArea> map = new HashMap<Integer, SearchArea>();
-        map.put(ACTION_PLAN_CATEGORY, new SearchArea("action_plan_category", "apc", "*"));
-        map.put(ACTION_PLAN, new SearchArea("action_plan", "ap", "*"));
-        map.put(ASSET, new SearchArea("asset", "a", "*"));
-        map.put(CONTACT_GROUP, new SearchArea("contact_group", "cg", "*"));
-        map.put(CONTACT_WITHIN_ORGANIZATION, new SearchArea("contact", "c", "*"));
-        map.put(CONTACT, new SearchArea("contact", "c", "*"));
-        map.put(DOCUMENT_CATEGORY, new SearchArea("document_category", "dc", "*"));
-        map.put(DOCUMENT, new SearchArea("document", "d", "*"));
-        map.put(EXTERNALIZED_PROCESS, new SearchArea("local_process", "lp", "*"));
-        map.put(LOCAL_PROCESS, new SearchArea("local_process", "lp", "*"));
-        map.put(QUESTIONNAIRE_TEMPLATE, new SearchArea("questionnaire_template", "qt", "*"));
-        map.put(REPORT_TEMPLATE, new SearchArea("report_template", "rt", "*"));
-        map.put(RESOURCE_TYPE, new SearchArea("resource_type", "rt", "*"));
-        return map;
-    }
-    
-    public SearchArea getAreaById(int id) {
-        return areaStorage.get(id);
-    }
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
 
+	public SearchArea(String key, String table, String alias, String selectColumns,
+			List<Field> fields, String join, String where) {
+		super();
+		this.key = key;
+		this.table = table;
+		this.alias = alias;
+		this.selectColumns = selectColumns;
+		this.fields = fields;
+		this.join = join;
+		this.where = where;
+	}
 	@Override
 	public String toString() {
-		return "table = " + table 
+		String res = "key = " + key 
+	    + ", table = " + table 
 		+ ", alias = " + alias
-		+ ", select-columns = " + what;
+		+ ", select-columns = " + selectColumns
+		+ ", area-join = " + join
+		+ ", where = " + where
+		+ "\n";
+		
+		if (fields != null) {
+			for (Field f : fields) {
+				res += f.toString() + "\n";
+			}
+		}
+		
+		return res;
 	}
-    
-    
 }

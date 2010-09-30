@@ -19,18 +19,14 @@ import org.w3c.dom.NodeList;
 
 public class SearchConfiguration {
     
-    private static Map<String, SearchArea> conf = initConfiguration();
+    private static Map<String, SearchArea> conf = loadFromXml();
     
-    private static Map<String, SearchArea> initConfiguration() {
+    public static SearchArea getSearchArea(String searchAreaKey) {
+        return conf.get(searchAreaKey);
+    }
+    
+	private static Map<String, SearchArea> loadFromXml() {
         Map<String, SearchArea> res = new HashMap<String, SearchArea>();
-        return res;
-    }
-    
-    public static SearchArea getSearchArea(Integer searchArea) {
-        return conf.get(searchArea);
-    }
-    
-	public static void loadFromXml() {
 		
 		// parse the XML as a W3C Document
 		try {
@@ -51,13 +47,41 @@ public class SearchConfiguration {
 				String areaJoin = xpath.evaluate("area-join", node);
 				String areaWhere = xpath.evaluate("area-where", node);
 				
-				SearchArea area = new SearchArea(table, alias, selectColumns);
-				System.out.println(area);
+				List<Field> fields = new ArrayList<Field>();
+				NodeList fieldNodes = (NodeList) xpath.evaluate("fields/field", node, XPathConstants.NODESET);
+				for (int j = 0; j < fieldNodes.getLength(); j++) {
+					Node fieldNode = fieldNodes.item(j);
+					
+					attribs = fieldNode.getAttributes();
+					String fieldKey = attribs.getNamedItem("key").getTextContent();
+					
+					List<Join> joins = new ArrayList<Join>();
+					NodeList joinList = (NodeList) xpath.evaluate("join", fieldNode, XPathConstants.NODESET);
+
+					for (int k = 0; k < joinList.getLength(); k++) {
+						Join join = new Join(joinList.item(k).getTextContent());
+						joins.add(join);
+					}
+					
+					List<String> columns = new ArrayList<String>();
+					NodeList columnList = (NodeList) xpath.evaluate("column", fieldNode, XPathConstants.NODESET);
+					for (int k = 0; k < columnList.getLength(); k++) {
+						columns.add(columnList.item(k).getTextContent());
+					}
+					
+					fields.add(new Field(fieldKey, joins, columns));
+				}
 				
+				SearchArea area = new SearchArea(key, table, alias, selectColumns, 
+						fields, areaJoin, areaWhere);
+				System.out.println(area);
+				res.put(area.getKey(), area);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}
+		
+        return res;
 
+	}
 }
