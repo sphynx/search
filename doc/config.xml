@@ -4,7 +4,7 @@
     select $(what) from $(table) $(alias) $(joins) where $(where)
   </main-query-template>
   
-  <search-area table="contact" alias="c">
+  <search-area table="contact" alias="c" key="area.contact">
     <select-columns>*</select-columns>
 
     <fields>

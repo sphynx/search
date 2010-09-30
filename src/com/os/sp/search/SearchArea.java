@@ -80,4 +80,13 @@ public class SearchArea {
     public SearchArea getAreaById(int id) {
         return areaStorage.get(id);
     }
+
+	@Override
+	public String toString() {
+		return "table = " + table 
+		+ ", alias = " + alias
+		+ ", select-columns = " + what;
+	}
+    
+    
 }

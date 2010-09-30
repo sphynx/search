@@ -2,18 +2,9 @@ package com.os.sp.search;
 
 public class Operator {
     
-    public final static Operator STRING_STARTS_WITH = new Operator("operator.string.startWith", Type.STRING, 
-         " $p like '$v%'");
-    public final static Operator STRING_EQUALS = new Operator("operator.string.equals", Type.STRING, 
-        " $p = '$v'");
-    public final static Operator STRING_CONTAINS = new Operator("operator.string.contains", Type.STRING, 
-        " $p like '%$v%'");
-    public final static Operator STRING_ENDS_WITH = new Operator("operator.string.endWith", Type.STRING, 
-        " $p like '%$v%'");
-    
     private String name;
     private int type;
-    private String pattern;
+    private String template;
     
     public String getName() {
         return name;
@@ -31,17 +22,17 @@ public class Operator {
         this.type = type;
     }
     
-    public String getPattern() {
-        return pattern;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
-    public Operator(String name, int type, String pattern) {
+    public Operator(String name, int type, String template) {
         this.name = name;
         this.type = type;
-        this.pattern = pattern;
+        this.template = template;
     }
 }
