@@ -1,0 +1,67 @@
+<search-config>
+
+  <main-query-template>
+    select $(what) from $(table) $(alias) $(joins) where $(where)
+  </main-query-template>
+  
+  <search-area table="contact" alias="c">
+    <select-columns>*</select-columns>
+
+    <fields>
+      
+      <field key="contact.firstName">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <column>ci.first_name</column>
+      </field>
+
+      <field key="contact.lastName">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <column>ci.last_name</column>
+      </field>
+
+      <field key="contact.companyName">
+        <join>record_catalog rc on c.id = rc.id</join>
+        <join>company co on co.id = rc.company_id</join>
+        <column>co.name</column>
+      </field>
+
+      <field key="contact.notes">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <column>ci.notes</column>
+      </field>
+
+      <field key="contact.email">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <join>contact_personal_info cpi on c.id = cpi.contact_id</join>
+        <column>ci.work_email</column>
+        <column>cpi.personal_email</column>
+      </field>
+
+      <field key="contact.phone">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <join>contact_personal_info cpi on c.id = cpi.contact_id</join>
+        <column>ci.work_tel</column>
+        <column>cpi.home_telephone</column>
+      </field>
+
+      <field key="contact.employeeNo">
+        <join>contact_info ci on c.id = ci.contact_id</join>
+        <column>ci.employee_no</column>
+      </field>
+
+      <field key="contact.externalId">
+        <join>record_catalog rc on c.id = rc.id</join>
+        <column>rc.external_uid</column>
+      </field>
+
+      <field key="contact.username">
+        <column>c.username</column>
+      </field>
+      
+    </fields>
+
+    <area-join></area-join>
+    <area-where>fn_apply_filter(:filterId, rc.id, 1) = true</area-where>
+    
+  </search-area>
+</search-config>

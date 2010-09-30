@@ -1,0 +1,28 @@
+<operators>
+  
+  <operator name="string.contains">
+    <type>str</type>
+    <template>$(F) like %$(V)%</template>
+  </operator>
+  
+  <operator name="string.starts-with">
+    <type>str</type>
+    <template>$(F) like $(V)%</template>
+  </operator>
+
+  <operator name="string.ends-with">
+    <type>str</type>
+    <template>$(F) like %$(V)</template>
+  </operator>
+
+  <operator name="string.equals">
+    <type>str</type>
+    <template>$(F) = $(V)</template>
+  </operator>
+
+  <operator name="string.matches">
+    <type>str</type>
+    <template>$(F) like $(V)</template>
+  </operator>
+      
+</operators>
